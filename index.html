@@ -1,0 +1,9 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Big Bus Co</title>
+<script>
+// Hop page: Gmail wraps every mail.google.com link inside an email in a Redirect Notice.
+// A link to this page is waved through, and the page bounces straight into Admin Gmail.
+// The target rides in the URL hash, which the browser never sends anywhere.
+var h = location.hash || '';
+if (h) { location.replace('https://mail.google.com/mail/?authuser=admin@bigbusco.com.au' + h); }
+</script></head>
+<body style="font-family:Arial,sans-serif;color:#171717;padding:24px">Opening Admin Gmail&hellip;</body></html>
