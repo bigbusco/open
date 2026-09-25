@@ -2,8 +2,14 @@
 <html><head><meta charset="utf-8"><title>Opening Gmail</title>
 <script>
 (function () {
-  var t = 'https://mail.google.com/mail/?authuser=admin@bigbusco.com.au' + location.hash;
-  // If the Gmail tab that opened us is reachable, send it to the draft and close this tab.
+  // Accepts the Gmail part three ways, because Gmail's link checker treats some URL shapes as unsafe:
+  //   /open/?c=<compose code>      /open/#c=<compose code>      /open/#<anything Gmail understands>
+  var h = location.hash;
+  var q = new URLSearchParams(location.search);
+  if (q.get('c')) h = '#drafts?compose=' + q.get('c');
+  else if (q.get('m')) h = '#all/' + q.get('m');
+  else if (/^#c=/.test(h)) h = '#drafts?compose=' + h.slice(3);
+  var t = 'https://mail.google.com/mail/?authuser=admin@bigbusco.com.au' + h;
   try {
     if (window.opener && !window.opener.closed) {
       window.opener.location.href = t;
